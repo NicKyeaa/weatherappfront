@@ -1,7 +1,12 @@
 import "./App.css";
+import WeatherCard from "./components/weatherCard";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <WeatherCard />
+    </>
+  );
 }
 
 export default App;
