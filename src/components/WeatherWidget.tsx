@@ -10,14 +10,24 @@ const WeatherWidget: React.FC = () => {
 
   // Fetching the lat,long for the location
   const fetchLocation = async (locationText: string) => {
-    console.log(locationText);
-    const geocodingURLString: string =
+    // Declaring a URL variable
+    const geocodingURL: string =
       "https://geocoding-api.open-meteo.com/v1/search?name=" +
-      locationText +
+      encodeURI(locationText) +
       "&count=10&language=en&format=json";
-    const encodedGeocodingURL = encodeURIComponent(geocodingURLString);
-    const resultLocation = await axios.get(encodedGeocodingURL);
+
+    // Fetching the data
+    const resultLocation = await axios.get(geocodingURL);
     console.log(resultLocation);
+    setLocation(locationText);
+
+    // Returning the lat and longitute
+    const lattitude: number = resultLocation.data.results[0].latitude;
+    const longitude: number = resultLocation.data.results[0].longitude;
+    const returnArray = [lattitude, longitude];
+    console.log(resultLocation.data.results[0]);
+
+    return returnArray;
   };
 
   return (
