@@ -1,0 +1,1 @@
+Weather and Geocoding: https://open-meteo.com/en/docs
