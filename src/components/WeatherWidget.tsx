@@ -11,7 +11,7 @@ const WeatherWidget: React.FC = () => {
   }
 
   const [location, setLocation] = useState("City");
-  const [weatherData, setWeatherData] = useState<weatherData | null>(null);
+  const [weatherData, setWeatherData] = useState({ temperature: 0 });
 
   // Fetching the lat,long for the location
   const fetchLocation = async (locationString: string) => {
@@ -63,7 +63,8 @@ const WeatherWidget: React.FC = () => {
         ></Search>
         <Card>
           <Title level={3}>{location}</Title>
-          {/* <Text>{weatherData.temperature}</Text> */}
+          <Text>{weatherData.temperature}&deg;C</Text>
+          <Text></Text>
         </Card>
       </Space>
     </>
