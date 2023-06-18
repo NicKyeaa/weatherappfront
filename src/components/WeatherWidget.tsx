@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Card, Space, Input, Typography } from "antd";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { Search } = Input;
 
 const WeatherWidget: React.FC = () => {
+  interface weatherData {
+    temperature: number;
+  }
+
   const [location, setLocation] = useState("City");
-  const [weatherData, setWeatherData] = useState({});
+  const [weatherData, setWeatherData] = useState<weatherData | null>(null);
 
   // Fetching the lat,long for the location
   const fetchLocation = async (locationString: string) => {
@@ -19,7 +23,7 @@ const WeatherWidget: React.FC = () => {
 
     // Fetching the data
     const resultLocation = await axios.get(geocodingURL);
-    console.log(resultLocation);
+    // console.log(resultLocation);
     setLocation(locationString);
 
     // Returning the lat and longitute
@@ -45,8 +49,8 @@ const WeatherWidget: React.FC = () => {
       "&hourly=temperature_2m&current_weather=true&forecast_days=1";
     // Fetching the data
     const resultWeatherForecast = await axios.get(weatherForecastURL);
-    console.log(resultWeatherForecast);
-    setWeatherData(resultWeatherForecast);
+    setWeatherData(resultWeatherForecast.data.current_weather);
+    console.log(weatherData);
   };
 
   return (
@@ -59,6 +63,7 @@ const WeatherWidget: React.FC = () => {
         ></Search>
         <Card>
           <Title level={3}>{location}</Title>
+          {/* <Text>{weatherData.temperature}</Text> */}
         </Card>
       </Space>
     </>
